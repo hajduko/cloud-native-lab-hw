@@ -35,9 +35,14 @@ def resize_image(image):
 def process(uid):
     try:
         original_path = f"{uid}/{ORIGINAL}.jpg"
+        print(f"Fetching object: bucket={BUCKET}, path={original_path}", flush=True)
+
         response = minio_client.get_object(BUCKET, original_path)
-        image_data = np.asarray(bytearray(response.read()), dtype="uint8")
-        origin_image = cv2.imdecode(image_data, cv2.IMREAD_COLOR)
+        with response as stream:
+            image_bytes = stream.read()
+            print(f"Fetched {len(image_bytes)} bytes", flush=True)
+            image_data = np.asarray(bytearray(image_bytes), dtype="uint8")
+            origin_image = cv2.imdecode(image_data, cv2.IMREAD_COLOR)
 
         resized_image, h, w = resize_image(origin_image)
 
