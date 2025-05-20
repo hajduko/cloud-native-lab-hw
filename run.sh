@@ -2,7 +2,7 @@
 set -e  # Exit immediately if any command fails
 
 echo "Starting the setup..."
-sudo kubectl apply -f configmap.yaml
+sudo kubectl apply -f config.yaml
 
 echo "Building Docker images..."
 sudo docker build -t imagegrab:latest ./1_imagegrab
