@@ -9,27 +9,27 @@ echo "Starting the setup..."
 sudo kubectl apply -f config.yaml
 
 echo "Building and importing Docker images..."
-sudo docker build -t imagegrab:latest ./1_imagegrab
+sudo docker build --no-cache -t imagegrab:latest ./1_imagegrab
 sudo docker save -o /tmp/imagegrab.tar imagegrab:latest
 sudo ctr images import /tmp/imagegrab.tar
 sudo rm /tmp/imagegrab.tar
 
-sudo docker build -t resize:latest ./2_resize
+sudo docker build --no-cache -t resize:latest ./2_resize
 sudo docker save -o /tmp/resize.tar resize:latest
 sudo ctr images import /tmp/resize.tar
 sudo rm /tmp/resize.tar
 
-sudo docker build -t grayscale:latest ./3_grayscale
+sudo docker build --no-cache -t grayscale:latest ./3_grayscale
 sudo docker save -o /tmp/grayscale.tar grayscale:latest
 sudo ctr images import /tmp/grayscale.tar
 sudo rm /tmp/grayscale.tar
 
-sudo docker build -t objectdetect:latest ./4_objectdetect
+sudo docker build --no-cache -t objectdetect:latest ./4_objectdetect
 sudo docker save -o /tmp/objectdetect.tar objectdetect:latest
 sudo ctr images import /tmp/objectdetect.tar
 sudo rm /tmp/objectdetect.tar
 
-sudo docker build -t tag:latest ./5_tag
+sudo docker build --no-cache -t tag:latest ./5_tag
 sudo docker save -o /tmp/tag.tar tag:latest
 sudo ctr images import /tmp/tag.tar
 sudo rm /tmp/tag.tar

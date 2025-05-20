@@ -56,4 +56,9 @@ print("Listening on resize...")
 
 for msg in pubsub.listen():
     if msg["type"] == "message":
-        process(msg["data"])
+        print("Received message:", msg, flush=True)
+        uid = msg.get("data")
+        if isinstance(uid, str) and uid.strip():
+            process(uid)
+        else:
+            print("Invalid UID received:", uid, flush=True)
