@@ -6,10 +6,10 @@ from minio import Minio
 from io import BytesIO
 
 SCALE_PERCENT = int(os.getenv("SCALE_PERCENT", 25))
-MINIO_ENDPOINT = os.getenv("MINIO_ENDPOINT")
-MINIO_ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY")
-MINIO_SECRET_KEY = os.getenv("MINIO_SECRET_KEY")
-REDIS_HOST = os.getenv("REDIS_HOST")
+MINIO_ENDPOINT = os.getenv("MINIO_ENDPOINT", "minio:9000")
+MINIO_ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
+MINIO_SECRET_KEY = os.getenv("MINIO_SECRET_KEY", "minioadmin")
+REDIS_HOST = os.getenv("REDIS_HOST", "redis")
 REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
 BUCKET = os.getenv("BUCKET_NAME")
 ORIGINAL = os.getenv("MINIO_ORIGINAL")
