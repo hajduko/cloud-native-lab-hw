@@ -61,9 +61,9 @@ def process(data):
         grayscale_path = f"{uid}/{GRAYSCALE}.jpg"
         response = minio_client.get_object(BUCKET, grayscale_path)
         image_data = np.asarray(bytearray(response.read()), dtype="uint8")
-        grayscale_image = cv2.imdecode(image_data, cv2.IMREAD_COLOR)
+        grayscale_image = cv2.imdecode(image_data, cv2.IMREAD_GRAYSCALE)
 
-        labels_and_coords = object_detect(grayscale_image, h, w)
+        labels_and_coords = object_detect(grayscale_image, int(h), int(w))
 
         message = {
             "uid": uid,
