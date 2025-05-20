@@ -18,7 +18,7 @@ DETECTED = os.getenv("MINIO_DETECTED", "detected")
 redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
 minio_client = Minio(MINIO_ENDPOINT, access_key=MINIO_ACCESS_KEY, secret_key=MINIO_SECRET_KEY, secure=False)
 
-def grayscale_image(image):
+def grayscale(image):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     return image
 
@@ -30,7 +30,7 @@ def process(data):
         image_data = np.asarray(bytearray(response.read()), dtype="uint8")
         resized_image = cv2.imdecode(image_data, cv2.IMREAD_COLOR)
 
-        grayscale_image = grayscale_image(resized_image)
+        grayscale_image = grayscale(resized_image)
 
         grayscale_path = f"{uid}/{GRAYSCALE}.jpg"
         grayscale_bytes = cv2.imencode('.jpg', grayscale_image)[1].tobytes()
