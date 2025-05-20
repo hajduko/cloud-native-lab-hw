@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: image-process-config
+data:
+  MINIO_ENDPOINT: 'minio:9000'
+  MINIO_ACCESS_KEY: 'minioadmin'
+  MINIO_SECRET_KEY: 'minioadmin'
+  MINIO_BUCKET: 'images'
+  MINIO_ORIGINAL: 'original'
+  MINIO_RESIZED: 'resized'
+  MINIO_GRAYSCALE: 'grayscale'
+  MINIO_DETECTED: 'detected'
+  MINIO_TAGGED: 'tagged'
+  REDIS_HOST: 'redis'
+  REDIS_PORT: '6379'

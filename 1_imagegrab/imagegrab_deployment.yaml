@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: imagegrab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: imagegrab
+  template:
+    metadata:
+      labels:
+        app: imagegrab
+    spec:
+      containers:
+        - name: imagegrab
+          image: imagegrab:latest
+          env:
+            - name: MINIO_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: MINIO_ENDPOINT
+            - name: MINIO_ACCESS_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: MINIO_ACCESS_KEY
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: MINIO_SECRET_KEY
+            - name: MINIO_BUCKET
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: MINIO_BUCKET
+            - name: MINIO_ORIGINAL
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: MINIO_ORIGINAL
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: REDIS_PORT
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: imagegrab
+spec:
+  selector:
+    app: imagegrab
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
