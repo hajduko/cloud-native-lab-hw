@@ -26,7 +26,7 @@ CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
 
 COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
 
-def tag_image(labels_and_coords, origin_image):
+def tag_image(origin_image, labels_and_coords):
     image = copy.deepcopy(origin_image)
     for label_and_coord in labels_and_coords:
         label = label_and_coord["label"]["name"]
