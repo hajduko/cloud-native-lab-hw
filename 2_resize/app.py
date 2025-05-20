@@ -13,6 +13,7 @@ MINIO_SECRET_KEY = os.getenv("MINIO_SECRET_KEY")
 REDIS_HOST = os.getenv("REDIS_HOST")
 REDIS_PORT = int(os.getenv("REDIS_PORT"))
 BUCKET = os.getenv("BUCKET_NAME")
+ORIGINAL = os.getenv("MINIO_ORIGINAL")
 RESIZED = os.getenv("MINIO_RESIZED")
 GRAYSCALE = os.getenv("MINIO_GRAYSCALE")
 
@@ -28,23 +29,23 @@ def resize_image(image):
 
 def process(uid):
     try:
-        original_path = f"{uid}/{RESIZED}.jpg"
+        original_path = f"{uid}/{ORIGINAL}.jpg"
         response = minio_client.get_object(BUCKET, original_path)
         image_data = np.asarray(bytearray(response.read()), dtype="uint8")
         origin_image = cv2.imdecode(image_data, cv2.IMREAD_COLOR)
 
         resized_image, h, w = resize_image(origin_image)
 
-        resized_path = f"{uid}/{MINIO_RESIZED}d.jpg"
+        resized_path = f"{uid}/{RESIZED}.jpg"
         resized_bytes = cv2.imencode('.jpg', resized_image)[1].tobytes()
 
         minio_client.put_object(BUCKET, resized_path, BytesIO(resized_bytes), len(resized_bytes))
-        redis_client.publish(MINIO_GRAYSCALE, f"{uid};{h};{w}")
+        redis_client.publish(GRAYSCALE, f"{uid};{h};{w}")
     except Exception as e:
         print("Error in resize:", e)
 
 pubsub = redis_client.pubsub()
-pubsub.subscribe(MINIO_RESIZED)
+pubsub.subscribe(RESIZED)
 
 print("Listening on resize...")
 

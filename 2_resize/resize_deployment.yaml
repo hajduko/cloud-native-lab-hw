@@ -36,6 +36,11 @@ spec:
                 configMapKeyRef:
                   name: image-process-config
                   key: MINIO_BUCKET
+            - name: MINIO_ORIGINAL
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: MINIO_ORIGINAL
             - name: MINIO_RESIZED
               valueFrom:
                 configMapKeyRef:
