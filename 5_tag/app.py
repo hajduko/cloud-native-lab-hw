@@ -69,4 +69,4 @@ print("Listening on tagged...")
 
 for msg in pubsub.listen():
     if msg["type"] == "message":
-        process(msg["data"].decode("utf-8"))
+        process(msg["data"])
