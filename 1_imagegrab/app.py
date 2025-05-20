@@ -24,6 +24,9 @@ minio_client = Minio(
 
 redis_client = Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
 
+if not minio_client.bucket_exists(BUCKET):
+    minio_client.make_bucket(BUCKET)
+
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['image']
