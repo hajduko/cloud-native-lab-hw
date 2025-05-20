@@ -41,15 +41,17 @@ sudo kubectl apply -f 3_grayscale/grayscale_deployment.yaml
 sudo kubectl apply -f 4_objectdetect/objectdetect_deployment.yaml
 sudo kubectl apply -f 5_tag/tag_deployment.yaml
 
+echo "Installing MinIO client..."
+sudo curl https://dl.min.io/client/mc/release/linux-amd64/mc -o mc
+sudo chmod +x mc
+sudo mv mc /usr/local/bin/
+
 echo "Setting up port forwarding..."
 sleep 10  # Wait for services to be up
 sudo kubectl port-forward service/imagegrab 8080:80 &
 sudo kubectl port-forward service/minio 9000:9000 &
 
 echo "Setting up MinIO bucket..."
-sudo curl https://dl.min.io/client/mc/release/linux-amd64/mc -o mc
-sudo chmod +x mc
-sudo mv mc /usr/local/bin/
 sudo mc alias set localminio http://localhost:9000 minioadmin minioadmin
 sudo mc mb localminio/images
 
