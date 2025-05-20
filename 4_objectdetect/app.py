@@ -27,6 +27,7 @@ CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
            "sofa", "train", "tvmonitor"]
 
 def object_detect(image, origin_h, origin_w):
+    print(f"Input image shape before cvtColor: {image.shape}")
     image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
     (height, width) = image.shape[:2]
     blob = cv2.dnn.blobFromImage(image, 0.007843, (height, width), 127.5)
