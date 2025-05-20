@@ -35,7 +35,7 @@ def upload():
 
     minio_client.put_object(BUCKET, original_path, file.stream, length=-1, part_size=10*1024*1024)
 
-    redis_client.publish(RESIZED, original_path)
+    redis_client.publish(RESIZED, uid)
     return jsonify({"message": "Image uploaded", "id": uid})
 
 if __name__ == "__main__":

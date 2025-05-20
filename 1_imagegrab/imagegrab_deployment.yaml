@@ -41,6 +41,11 @@ spec:
                 configMapKeyRef:
                   name: image-process-config
                   key: MINIO_ORIGINAL
+            - name: MINIO_RESIZED
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: MINIO_RESIZED
             - name: REDIS_HOST
               valueFrom:
                 configMapKeyRef:
