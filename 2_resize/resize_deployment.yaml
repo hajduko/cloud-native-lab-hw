@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resize
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resize
+  template:
+    metadata:
+      labels:
+        app: resize
+    spec:
+      containers:
+        - name: resize
+          image: resize:latest
+          env:
+            - name: MINIO_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: MINIO_ENDPOINT
+            - name: MINIO_ACCESS_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: MINIO_ACCESS_KEY
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: MINIO_SECRET_KEY
+            - name: MINIO_BUCKET
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: MINIO_BUCKET
+            - name: MINIO_RESIZED
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: MINIO_RESIZED
+            - name: MINIO_GRAYSCALE
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: MINIO_GRAYSCALE
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: REDIS_PORT
+            - name: SCALE_PERCENT
+              valueFrom:
+                configMapKeyRef:
+                  name: image-process-config
+                  key: SCALE_PERCENT
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: resize
+spec:
+  selector:
+    app: resize
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

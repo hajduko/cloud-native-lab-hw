@@ -14,3 +14,4 @@ data:
   MINIO_TAGGED: 'tagged'
   REDIS_HOST: 'redis'
   REDIS_PORT: '6379'
+  SCALE_PERCENT: '25'
