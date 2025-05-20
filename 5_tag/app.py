@@ -2,7 +2,6 @@ import os
 import cv2
 import numpy as np
 import redis
-import time
 from minio import Minio
 from io import BytesIO
 
