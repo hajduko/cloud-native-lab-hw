@@ -81,4 +81,4 @@ print("Listening on detected...")
 
 for msg in pubsub.listen():
     if msg["type"] == "message":
-        process(msg["data"])
+        process(msg["data"].decode("utf-8"))
