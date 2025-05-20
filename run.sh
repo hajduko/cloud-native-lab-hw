@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e  # Exit immediately if any command fails
 
-echo "Cleaning up previous deployments..."
-sudo pkill -f 'kubectl port-forward'
-sudo kubectl delete all --all
+# echo "Cleaning up previous deployments..."
+# sudo pkill -f 'kubectl port-forward'
+# sudo kubectl delete all --all
 
 echo "Starting the setup..."
 sudo kubectl apply -f config.yaml
