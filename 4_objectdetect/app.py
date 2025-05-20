@@ -19,6 +19,14 @@ TAGGED = os.getenv("MINIO_TAGGED")
 redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
 minio_client = Minio(MINIO_ENDPOINT, access_key=MINIO_ACCESS_KEY, secret_key=MINIO_SECRET_KEY, secure=False)
 
+net = cv2.dnn.readNetFromCaffe("./MobileNetSSD_deploy.prototxt",
+                               "./MobileNetSSD_deploy.caffemodel")
+
+CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
+           "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
+           "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
+           "sofa", "train", "tvmonitor"]
+
 def object_detect(image, origin_h, origin_w):
     image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
     (height, width) = image.shape[:2]
@@ -30,7 +38,7 @@ def object_detect(image, origin_h, origin_w):
     labels_and_coords = []
     for i in np.arange(0, detections.shape[2]):
         confidence = detections[0, 0, i, 2]
-        if confidence > CONFIDENCE_MIN:
+        if confidence > 0.4:
             idx = int(detections[0, 0, i, 1])
             # Mark area on the original-sized picture not the resized
             box = detections[0, 0, i, 3:7] * np.array([origin_w,

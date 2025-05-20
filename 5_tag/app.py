@@ -18,6 +18,13 @@ TAGGED = os.getenv("MINIO_TAGGED")
 redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
 minio_client = Minio(MINIO_ENDPOINT, access_key=MINIO_ACCESS_KEY, secret_key=MINIO_SECRET_KEY, secure=False)
 
+CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
+           "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
+           "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
+           "sofa", "train", "tvmonitor"]
+
+COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
+
 def tag_image(labels_and_coords, origin_image):
     image = copy.deepcopy(origin_image)
     for label_and_coord in labels_and_coords:
