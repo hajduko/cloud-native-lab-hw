@@ -39,12 +39,12 @@ def process(data):
         minio_client.put_object(BUCKET, grayscale_path, BytesIO(grayscale_bytes), len(grayscale_bytes))
         redis_client.publish(DETECTED, f"{uid};{h};{w}")
     except Exception as e:
-        print("Error in resize:", e)
+        print("Error in grayscale:", e)
 
 pubsub = redis_client.pubsub()
 pubsub.subscribe(GRAYSCALE)
 
-print("Listening on resize...")
+print("Listening on grayscale...")
 
 for msg in pubsub.listen():
     if msg["type"] == "message":
