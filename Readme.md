@@ -11,8 +11,8 @@ Select 20 GB for the4 EC2 instance.
 Clone the repository and install dependencies:
 
 ```sh
-git clone <repository-url>
-cd <repository-folder>
+git clone https://github.com/hajduko/cloud-native-lab-hw.git
+cd cloud-native-lab-hw
 chmod +x run.sh
 ```
 
