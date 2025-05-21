@@ -1,6 +1,6 @@
 echo "Testing the setup..."
 sudo curl -X POST http://localhost:8080/upload -F "image=@test-1.jpg"
-sleep 5
+sleep 10
 sudo mc ls --recursive localminio/images
 read -p "Enter the uid of the images: " uid
 sudo mc get localminio/images/$uid/original.jpg original.jpg
