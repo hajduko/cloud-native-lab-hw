@@ -7,7 +7,6 @@ sudo mc get localminio/images/$uid/original.jpg original.jpg
 sudo mc get localminio/images/$uid/resized.jpg resized.jpg
 sudo mc get localminio/images/$uid/grayscale.jpg grayscale.jpg
 sudo mc get localminio/images/$uid/result.jpg result.jpg
-sudo git add original.jpg resized.jpg grayscale.jpg result.jpg
-sudo git commit -m "Test images"
-sudo git push
-echo "Test images pushed to GitHub"
+sudo git add .
+sudo git commit -m "$uid"
+echo "Test images commited to GitHub"

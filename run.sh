@@ -86,7 +86,7 @@ echo "Setting up MinIO bucket..."
 echo ""
 
 sudo mc alias set localminio http://localhost:9000 minioadmin minioadmin
-sudo mc mb localminio/images
+sudo mc mb localminio/images || true
 
 echo ""
 echo "Done MinIO bucket setup"
@@ -96,6 +96,7 @@ echo ""
 sudo chmod +x test.sh
 sudo git config --global user.name "hajduko"
 sudo git config --global user.email "hajdu.kolos@edu.bme.hu"
+sudo git remote set-url origin git@github.com:hajduko/cloud-native-lab-hw.git
 ssh-keygen -t ed25519 -C "hajdu.kolos@edu.bme.hu"
 cat ~/.ssh/id_ed25519.pub
 
