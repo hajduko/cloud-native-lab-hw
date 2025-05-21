@@ -8,7 +8,7 @@ Install this CloudFromation stack: https://us-east-1.console.aws.amazon.com/clou
 
 Select 20 GB for the EC2 instance. (Server: Storage size of the Kubernetes server in GiB)
 
-Clone the repository and install dependencies:
+Clone the repository:
 
 ```sh
 git clone https://github.com/hajduko/cloud-native-lab-hw.git

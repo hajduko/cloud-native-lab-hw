@@ -9,9 +9,4 @@ sudo mc get localminio/images/$uid/grayscale.jpg grayscale.jpg
 sudo mc get localminio/images/$uid/result.jpg result.jpg
 sudo git add .
 sudo git commit -m "$uid"
-<<<<<<< HEAD
 echo "Test images commited to GitHub"
-=======
-sudo git push
-echo "Test images pushed to GitHub"
->>>>>>> 9c8a882c9f3080ca90f111c015f2a5c3d63e088e
